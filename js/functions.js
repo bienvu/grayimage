@@ -16,7 +16,7 @@ $(document).ready(function() {
 				$(".container img").hover(
 					function () {
 						grayscale.reset($(this));
-					}, 
+					},
 					function () {
 						grayscale($(this));
 					}
@@ -30,8 +30,8 @@ $(document).ready(function() {
 			}
 		});
 	};
-	
-	
+
+
 	// Grayscale images only on browsers IE10+ since they removed support for CSS grayscale filter
 	if (getInternetExplorerVersion() >= 10){
 		$('.container img').each(function(){
@@ -43,32 +43,32 @@ $(document).ready(function() {
 			});
 			this.src = grayscaleIE10(this.src);
 		});
-		
-		// Quick animation on IE10+ 
+
+		// Quick animation on IE10+
 		$('.container img').hover(
 			function () {
 				$(this).parent().find('img:first').stop().animate({opacity:1}, 200);
-			}, 
+			},
 			function () {
 				$('.img_grayscale').stop().animate({opacity:0}, 200);
 			}
-		);	
-		
+		);
+
 		function grayscaleIE10(src){
 			var canvas = document.createElement('canvas');
 			var ctx = canvas.getContext('2d');
 			var imgObj = new Image();
 			imgObj.src = src;
 			canvas.width = imgObj.width;
-			canvas.height = imgObj.height; 
-			ctx.drawImage(imgObj, 0, 0); 
+			canvas.height = imgObj.height;
+			ctx.drawImage(imgObj, 0, 0);
 			var imgPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
 			for(var y = 0; y < imgPixels.height; y++){
 				for(var x = 0; x < imgPixels.width; x++){
 					var i = (y * 4) * imgPixels.width + x * 4;
 					var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-					imgPixels.data[i] = avg; 
-					imgPixels.data[i + 1] = avg; 
+					imgPixels.data[i] = avg;
+					imgPixels.data[i + 1] = avg;
 					imgPixels.data[i + 2] = avg;
 				}
 			}
@@ -76,7 +76,7 @@ $(document).ready(function() {
 			return canvas.toDataURL();
 		};
 	};
-	
+
 	// This block simply ads a corresponding class to the body tag so that we can target browsers with CSS classes
 	if(getBrowser()=='mozilla'){
 		// Mozilla
@@ -89,7 +89,7 @@ $(document).ready(function() {
 	else if(getBrowser()=='opera'){
 		// Opera
 		$('body').addClass('opera');
-	}           
+	}
 	else if (getBrowser()=='safari'){ // safari
 		// Safari
 		$('body').addClass('safari');
@@ -117,7 +117,7 @@ $(document).ready(function() {
 		if($.browser.safari) return "safari";
 		if($.browser.msie) return "ie";
 	};
-	
+
 	// Since IE11 can not be detected like this because the new user agent on IE11 is trying to hide as Mozilla
 	// we detect IE11 with this function
 	function getInternetExplorerVersion(){
